@@ -5,7 +5,7 @@ from characters.Archer import Archer
 from characters.Player import Player
 
 # Locations
-from game.locations import village, forest, cave
+from game.locations import Location, village, forest, cave
 
 # Save and load methods
 from game.save_load import save_game, load_game
@@ -84,7 +84,12 @@ def world_interactions(player, interaction_name):
 # Move to new location
 def move_to_new_location(player):
 
-    new_location_name = input("Enter the name of the location you want to move to: ")
+    print("\n--- Locations ---")
+    for location in player.player_location.avalible_locations(player.player_location, [village, forest, cave]):
+        if location != player.player_location:
+            print(f"{location.name} - {location.description}")
+
+    new_location_name = input("\nEnter the name of the location you want to move to: ")
 
     if player.player_location.name.lower() == new_location_name:
         print("You are already in this location. ")
@@ -135,7 +140,7 @@ def menu_interactions(player, interaction_name):
 # Player input
 def player_input(player):
     while True: 
-        print(f"\n--- Options {player.player_name} ---")
+        print(f"\n--- Main Menu for {player.player_name} ---")
         print("Explore - Explore the current location.")
         print("Inventory - Opens the inventory. ")
         print("Skills - Open the skills menu. ")

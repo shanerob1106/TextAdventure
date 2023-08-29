@@ -13,3 +13,6 @@ class Location:
 
     def move(self, new_location):
         self.player_location = new_location
+
+    def avalible_locations(self, current_location, avalible_locations):
+        return [location for location in avalible_locations if location != current_location]
