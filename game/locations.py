@@ -1,6 +1,5 @@
 from game.location import Location
 
-
 # Create some locations
 village = Location(
     name="Village",
@@ -8,7 +7,8 @@ village = Location(
     interactions={"move": "You can move to the forest or the cave.",
                   "rest": "You can rest to restore your health.",
                   "shop": "You can visit the shop to buy and sell items.",
-                  "talk": "You can talk to the villagers."},
+                  "talk": "You can talk to the villagers.",
+                  "back": "Back to main menu." },
     #items=[Item("Potion", "Restores a small amount of health.")]
 )
 

@@ -10,3 +10,6 @@ class Location:
     
     def add_item(self, item):
         self.items.append(item)
+
+    def move(self, new_location):
+        self.player_location = new_location

@@ -56,7 +56,7 @@ def explore_location(player):
         
         action_input = input("\nWhat do you want to do?: ")
 
-        if action_input == 'exit':
+        if action_input == 'back':
             break
         elif action_input in player.player_location.interactions:
             world_interactions(player, action_input)
@@ -83,17 +83,25 @@ def world_interactions(player, interaction_name):
         
 # Move to new location
 def move_to_new_location(player):
+
     new_location_name = input("Enter the name of the location you want to move to: ")
 
-    if new_location_name == player.player_location.name.lower():
+    if player.player_location.name.lower() == new_location_name:
         print("You are already in this location. ")
     else:
-        new_location = player.player_location.move(new_location_name)
+        new_location = None
+
+        # Find the new location
+        for location in [village, forest, cave]:
+            if location.name.lower() == new_location_name:
+                new_location = location
+                break
         if new_location:
-            player.move_to(new_location)
+            player.move(new_location)
             print(f"You are now in {player.player_location.name}. ")
         else:
-            print("That location is not available. ")
+            print("\nThat location is not available. ")
+
 
 # Get location by name
 def get_location_by_name(location_name):
@@ -102,8 +110,9 @@ def get_location_by_name(location_name):
             return location
     return None
 
+# Menu interactions
 def menu_interactions(player, interaction_name):
-    interaction_description = player.interactions.get(interaction_name)
+    interaction_description = player.player_menu.get(interaction_name)
     if interaction_description: 
         print(interaction_description)
 
@@ -126,26 +135,26 @@ def menu_interactions(player, interaction_name):
 # Player input
 def player_input(player):
     while True: 
-        print("\n--- Options ----")
-        print("1. Explore - Explore the current location.")
-        print("2. Inventory - Opens the inventory. ")
-        print("3. Skills - Open the skills menu. ")
-        print("4. Save - Saves the game. ")
-        print("5. Quit - Exit the game without saving. ")
+        print(f"\n--- Options {player.player_name} ---")
+        print("Explore - Explore the current location.")
+        print("Inventory - Opens the inventory. ")
+        print("Skills - Open the skills menu. ")
+        print("Save - Saves the game. ")
+        print("Quit - Exit the game without saving. ")
 
-        choice = int(input("\nDecision: "))
-        if choice == 1:
+        choice = input("\nDecision: ")
+        if choice == "explore":
             explore_location(player)
-        elif choice == 2:
+        elif choice == "inventory":
             print("You can't open your inventory yet.")
             #player.inventory()
-        elif choice == 3:
+        elif choice == "skills":
             print("You can't open your skills yet.")
             #player.skills()
-        elif choice == 4:
+        elif choice == "save":
             save_game(player)
             player_input(player)
-        elif choice == 5:
+        elif choice == "quit":
             quit()
         else:
             print("Invalid choice. Choose a valid option. ")

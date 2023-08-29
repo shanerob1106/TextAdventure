@@ -5,7 +5,7 @@ from characters.Knight import Knight
 from characters.Mage import Mage
 from characters.Archer import Archer
 
-save_folder = 'TextAdventure\saved_games'
+save_folder = 'saved_games'
 save_path = os.path.join(save_folder, 'save_game.pkl')
 
 def save_game(player):
