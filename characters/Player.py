@@ -5,6 +5,7 @@ class Player:
         self.health = 100
         self.player_location = player_location
         self.player_menu = player_menu or {}
+        self.discovered_towns = []
 
     def introduce(self):
         return f"Hello, my name is {self.player_name} and I am a {self.player_class}. "
@@ -23,3 +24,9 @@ class Player:
     
     def skills(self):
         return f"Skills: {self.player_class.skills} "
+    
+    def save_discovered_towns(self): 
+        return ','.join (self.discovered_towns)
+    
+    def load_discovered_towns(self, towns_str):
+        self.discovered_towns = towns_str.split(',')

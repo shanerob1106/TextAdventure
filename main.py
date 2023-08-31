@@ -4,8 +4,12 @@ from characters.Mage import Mage
 from characters.Archer import Archer
 from characters.Player import Player
 
+# Random module
+import random
+
 # Locations
-from game.locations import Location, village, forest, cave
+# from game.locations import Location, village, forest, cave, create_location
+from game.locations import *
 
 # Save and load methods
 from game.save_load import save_game, load_game
@@ -107,7 +111,6 @@ def move_to_new_location(player):
         else:
             print("\nThat location is not available. ")
 
-
 # Get location by name
 def get_location_by_name(location_name):
     for location in [village, forest, cave]:
@@ -141,6 +144,7 @@ def menu_interactions(player, interaction_name):
 def player_input(player):
     while True: 
         print(f"\n--- Main Menu for {player.player_name} ---")
+        print("Walk - Walk to a new location.")
         print("Explore - Explore the current location.")
         print("Inventory - Opens the inventory. ")
         print("Skills - Open the skills menu. ")
@@ -148,7 +152,19 @@ def player_input(player):
         print("Quit - Exit the game without saving. ")
 
         choice = input("\nDecision: ")
-        if choice == "explore":
+
+        if choice == "walk":
+            print("You started too walk.")
+            if random.random() < 0.2:
+                new_town_name = Location.generate_town_name()
+                print(f"You have discovered a new town: {new_town_name}")
+                player.discovered_towns.append(new_town_name)
+                discovered_towns_str = player.save_discovered_towns()
+            else: 
+                print("You walked bu didn't find anything.")
+
+            #player.walk()
+        elif choice == "explore":
             explore_location(player)
         elif choice == "inventory":
             print("You can't open your inventory yet.")

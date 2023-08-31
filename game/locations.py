@@ -5,15 +5,33 @@ shared_interactions = {
     "back": "Back to main menu."
 }
 
+shared_village_interactions ={
+    "rest": "You can rest to restore your health.",
+    "shop": "You can visit the shop to buy and sell items.",
+    "talk": "You can talk to the villagers."
+}
+
+# Create some locations
+@classmethod
+def create_location(cls, village_name):
+    return cls(
+        name=village_name,
+        description="A new village: {village_name}",
+        interactions={
+            **shared_interactions,
+            "rest": "You can rest to restore your health.",
+        }
+    )
+
+
 # Create some locations
 village = Location(
     name="Village",
     description="A peaceful village with bustling activity.",
     interactions={
         **shared_interactions,
-        "rest": "You can rest to restore your health.",
-        "shop": "You can visit the shop to buy and sell items.",
-        "talk": "You can talk to the villagers." },
+        **shared_village_interactions,
+    }
     #items=[Item("Potion", "Restores a small amount of health.")]
 )
 
